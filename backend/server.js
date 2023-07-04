@@ -1,25 +1,26 @@
 require("dotenv").config();
-
 const mongoose = require("mongoose");
-
 const express = require("express");
 const app = express();
 
 const port = process.env.PORT;
 const url = process.env.MONGO_URL;
 
-const User = require("./models/user");
-const userController = require("./controllers/userController");
+// Import the users route file
+const usersRoute = require("./routes/users");
 
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to MongoDB server");
 
+    // Middleware to parse incoming request bodies as JSON
     app.use(express.json());
 
-    app.post("/api/users", userController.createUser);
+    // Use the users route
+    app.use("/api/users", usersRoute);
 
+    // Start the server
     app.listen(port, () => {
       console.log(`Server running on port ${port}`);
     });
