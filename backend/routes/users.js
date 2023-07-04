@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
 
 // POST route to create a new user
 router.post("/", async (req, res) => {
@@ -9,7 +10,8 @@ router.post("/", async (req, res) => {
       // Extract the user information from the request body
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      // Hash the password
+      password: await bcrypt.hash(req.body.password, 10),
       // Add other user properties as needed
     });
 
