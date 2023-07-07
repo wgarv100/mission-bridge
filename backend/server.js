@@ -7,7 +7,7 @@ const port = process.env.PORT;
 const url = process.env.MONGO_URL;
 
 // Import the users route file
-const usersRoute = require("./routes/users");
+const usersRoute = require("./routes/usersRoute");
 
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
